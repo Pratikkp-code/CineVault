@@ -223,7 +223,7 @@ export default function UploadPage() {
       <motion.div className="max-w-4xl mx-auto px-4" initial="hidden" animate="visible" variants={itemVariants}>
         <div className="text-center mb-10">
           <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent">Upload Your Movie</h1>
-          <p className="text-gray-400 text-lg">Share your creation with the world on the decentralized cinema.</p>
+          <p className="text-gray-400 text-lg">Share your creation with the world on the CineVault.</p>
         </div>
 
         {isConnected && userProfile && !userProfile.exists && (

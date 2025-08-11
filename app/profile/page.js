@@ -213,11 +213,6 @@ export default function ProfilePage() {
 
           <motion.div className="lg:col-span-8" variants={itemVariants}>
             <Tabs defaultValue="movies" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-gray-800 border-gray-700">
-                <TabsTrigger value="movies">My Movies</TabsTrigger>
-                <TabsTrigger value="activity">Activity (Coming Soon)</TabsTrigger>
-              </TabsList>
-
               <TabsContent value="movies" className="mt-6">
                 <Card className="bg-gray-800/50 border-gray-700">
                   <CardHeader className="flex-row items-center justify-between">

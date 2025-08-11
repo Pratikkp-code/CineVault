@@ -21,7 +21,7 @@ const campBlockchain = {
 }
 
 const config = getDefaultConfig({
-  appName: 'Decentralized Cinema',
+  appName: 'CineVault',
   projectId: '2937045a714fe98d30690cddc115e4bc', // Your WalletConnect project ID
   chains: [campBlockchain],
   ssr: true,
