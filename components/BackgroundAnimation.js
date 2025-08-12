@@ -1,40 +1,39 @@
 'use client'
 
-import { Film, Play, Ticket } from 'lucide-react'
+import { motion } from 'framer-motion'
 
-// This component is self-contained and renders the moving SVG shapes.
 export function BackgroundAnimation() {
-  // We use simple divs with SVG fills to create the shapes for better performance.
-  // Using Lucide icons directly for animation can be less performant.
-  const shapes = [
-    { icon: <Film />, size: 'w-16 h-16', top: '15%', left: '10%', delay: '0s', duration: '25s' },
-    { icon: <Play />, size: 'w-10 h-10', top: '20%', left: '80%', delay: '-5s', duration: '30s' },
-    { icon: <Ticket />, size: 'w-20 h-20', top: '75%', left: '20%', delay: '-8s', duration: '35s' },
-    { icon: <Film />, size: 'w-8 h-8', top: '80%', left: '90%', delay: '-12s', duration: '20s' },
-    { icon: <Play />, size: 'w-24 h-24', top: '50%', left: '50%', delay: '-2s', duration: '40s' },
-    { icon: <Ticket />, size: 'w-12 h-12', top: '5%', left: '40%', delay: '-15s', duration: '28s' },
-  ];
+  const blobs = [
+    { size: 400, color: 'rgba(0, 255, 255, 0.15)', x: '-30%', y: '-20%' },
+    { size: 500, color: 'rgba(0, 200, 255, 0.12)', x: '50%', y: '0%' },
+    { size: 350, color: 'rgba(0, 255, 180, 0.1)', x: '0%', y: '40%' }
+  ]
 
   return (
-    <div className="absolute inset-0 -z-10 w-full h-full overflow-hidden" aria-hidden="true">
-      {shapes.map((shape, index) => (
-        <div
+    <div className="absolute inset-0 overflow-hidden">
+      {blobs.map((blob, index) => (
+        <motion.div
           key={index}
-          className="floating-shape absolute text-cyan-400/20"
+          className="absolute rounded-full blur-3xl"
           style={{
-            width: shape.size.split(' ')[0].replace('w-', ''),
-            height: shape.size.split(' ')[1].replace('h-', ''),
-            top: shape.top,
-            left: shape.left,
-            animationDelay: shape.delay,
-            animationDuration: shape.duration,
+            width: blob.size,
+            height: blob.size,
+            background: blob.color,
+            top: blob.y,
+            left: blob.x,
           }}
-        >
-          {shape.icon}
-        </div>
+          animate={{
+            x: ['-5%', '5%', '-5%'],
+            y: ['-5%', '5%', '-5%'],
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 20 + index * 5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
       ))}
     </div>
-  );
+  )
 }
-
-

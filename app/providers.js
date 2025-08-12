@@ -6,6 +6,8 @@ import { WagmiProvider } from 'wagmi'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ThemeProvider } from '@/components/theme-provider'
 
+console.log(process.env)
+
 // Camp Blockchain configuration
 const campBlockchain = {
   id: 123420001114,
@@ -22,7 +24,7 @@ const campBlockchain = {
 
 const config = getDefaultConfig({
   appName: 'CineVault',
-  projectId: '2937045a714fe98d30690cddc115e4bc', // Your WalletConnect project ID
+  projectId: [process.env.NEXT_PUBLIC_WALLET_CONNECT], // Your WalletConnect project ID
   chains: [campBlockchain],
   ssr: true,
 })

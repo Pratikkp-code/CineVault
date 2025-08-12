@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { BackgroundAnimation } from "@/components/BackgroundAnimation"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, X, Play, Star, Film } from 'lucide-react'
 import Link from 'next/link'
@@ -45,17 +46,15 @@ export default function ExplorePage() {
 
     useEffect(() => {
         if (allMovies) {
-            // Newest first by default
-            const sorted = [...allMovies].sort((a, b) => Number(b.id) - Number(a.id));
-            setMovies(sorted);
-            setFilteredMovies(sorted);
+            const sorted = [...allMovies].sort((a, b) => Number(b.id) - Number(a.id))
+            setMovies(sorted)
+            setFilteredMovies(sorted)
         }
     }, [allMovies])
 
     useEffect(() => {
         let filtered = [...movies]
 
-        // Search filter
         if (searchTerm) {
             filtered = filtered.filter(movie =>
                 movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -63,12 +62,10 @@ export default function ExplorePage() {
             )
         }
 
-        // Genre filter
         if (selectedGenre !== 'all') {
             filtered = filtered.filter(movie => movie.genre === selectedGenre)
         }
 
-        // Sort
         switch (sortBy) {
             case 'newest':
                 filtered.sort((a, b) => Number(b.id) - Number(a.id))
@@ -93,37 +90,34 @@ export default function ExplorePage() {
 
     const genres = [...new Set(movies.map(movie => movie.genre))].filter(Boolean)
 
-    // Animation Variants for Framer Motion
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                staggerChildren: 0.08,
-            },
+            transition: { staggerChildren: 0.08 },
         },
     }
 
     const itemVariants = {
         hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-        },
+        visible: { y: 0, opacity: 1 },
     }
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-900 flex items-center justify-center relative">
+                <BackgroundAnimation />
                 <Loader />
             </div>
         )
     }
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28">
+        <div className="relative min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28">
+            <BackgroundAnimation />
+
             <motion.div
-                className="max-w-7xl mx-auto px-4"
+                className="max-w-7xl mx-auto px-4 relative z-10"
                 initial="hidden"
                 animate="visible"
                 variants={containerVariants}

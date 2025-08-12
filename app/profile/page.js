@@ -14,11 +14,10 @@ import Link from 'next/link'
 import { CONTRACT_ADDRESS, CONTRACT_ABI, handleContractError } from '@/lib/contract'
 import { uploadToPinata } from '@/lib/pinata'
 import { useToast } from '@/hooks/use-toast'
+import { BackgroundAnimation } from '@/components/BackgroundAnimation' // <-- Added background import
 
 export default function ProfilePage() {
-  // --- FIX START: State to track client-side mounting ---
   const [isMounted, setIsMounted] = useState(false)
-  // --- FIX END ---
 
   const { address, isConnected } = useAccount()
   const { toast } = useToast()
@@ -53,11 +52,9 @@ export default function ProfilePage() {
   const { writeContract, data: hash, isPending } = useWriteContract()
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash })
 
-  // --- FIX START: Effect to set mounted state on client ---
   useEffect(() => {
     setIsMounted(true)
   }, [])
-  // --- FIX END ---
 
   useEffect(() => {
     if (userProfile) {
@@ -116,21 +113,19 @@ export default function ProfilePage() {
     visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   }
 
-  // --- FIX START: Gate rendering until component is mounted on the client ---
   if (!isMounted) {
-    // Render a loader or null on the server and initial client render
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <Loader2 className="h-12 w-12 animate-spin text-teal-400" />
       </div>
     )
   }
-  // --- FIX END ---
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-        <Card className="bg-gray-800 border-gray-700 max-w-md text-center">
+      <div className="relative min-h-screen bg-gray-900 flex items-center justify-center p-4 overflow-hidden">
+        <BackgroundAnimation /> {/* <-- Animated background */}
+        <Card className="bg-gray-800 border-gray-700 max-w-md text-center z-10">
           <CardHeader>
             <Wallet className="h-16 w-16 text-cyan-400 mx-auto mb-4" />
             <CardTitle className="text-white text-2xl font-bold">Connect Your Wallet</CardTitle>
@@ -142,15 +137,15 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28">
+    <div className="relative min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28 overflow-hidden">
+      <BackgroundAnimation /> {/* <-- Animated background */}
       <motion.div
-        className="max-w-7xl mx-auto px-4"
+        className="max-w-7xl mx-auto px-4 z-10 relative"
         initial="hidden"
         animate="visible"
         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* ... The rest of your component code remains exactly the same ... */}
           <motion.div className="lg:col-span-4" variants={itemVariants}>
             <Card className="bg-gray-800 border-gray-700 h-full flex flex-col">
               <CardHeader className="text-center items-center flex flex-col">

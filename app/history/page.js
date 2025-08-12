@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAccount, useReadContract } from 'wagmi'
+import { BackgroundAnimation } from '@/components/BackgroundAnimation'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -57,7 +58,6 @@ export default function HistoryPage() {
 
   useEffect(() => {
     if (userRentals) {
-      // Sort by most recent first
       setWatchHistory([...userRentals].sort((a, b) => Number(b.rentedAt) - Number(a.rentedAt)))
     }
   }, [userRentals])
@@ -70,7 +70,6 @@ export default function HistoryPage() {
 
   const formatDate = (timestamp) => new Date(Number(timestamp) * 1000).toLocaleDateString()
   const formatDuration = (duration) => `${Number(duration) / 3600} Hours`
-  const formatPrice = (price) => (Number(price) / 1e18).toFixed(4)
 
   const getRemainingTime = (rentedAt, duration) => {
     const expiryTime = (Number(rentedAt) + Number(duration)) * 1000
@@ -117,9 +116,15 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28">
+    <div className="relative min-h-screen bg-gray-900 text-white py-12 pt-24 md:py-16 md:pt-28 overflow-hidden">
+      <BackgroundAnimation />
+      {/* Background Animation positioned behind everything */}
+      {/* <div className="absolute inset-0 z-[-1]">
+        
+      </div> */}
+
       <motion.div
-        className="max-w-7xl mx-auto px-4"
+        className="relative max-w-7xl mx-auto px-4 z-[1]"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -158,7 +163,13 @@ export default function HistoryPage() {
                             <Card className="bg-gray-800 border-gray-700 hover:border-teal-500 transition-colors duration-300 overflow-hidden group h-full flex flex-col">
                               <CardHeader className="p-0">
                                 <div className="aspect-video overflow-hidden">
-                                  <motion.img src={movie.thumbnailCID ? `https://gateway.pinata.cloud/ipfs/${movie.thumbnailCID}` : `/placeholder.svg?text=${encodeURIComponent(movie.title)}`} alt={movie.title} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.4 }} />
+                                  <motion.img
+                                    src={movie.thumbnailCID ? `https://gateway.pinata.cloud/ipfs/${movie.thumbnailCID}` : `/placeholder.svg?text=${encodeURIComponent(movie.title)}`}
+                                    alt={movie.title}
+                                    className="w-full h-full object-cover"
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.4 }}
+                                  />
                                 </div>
                               </CardHeader>
                               <CardContent className="p-4 flex flex-col flex-grow">
