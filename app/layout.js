@@ -3,7 +3,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
-import { Navbar } from '@/components/Navbar'
+import { Navbar } from '@/components/navbar'
 import { Toaster } from '@/components/ui/toaster'
 import { usePathname } from 'next/navigation'
 import Head from 'next/head' // Import Head
