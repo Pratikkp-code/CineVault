@@ -106,7 +106,7 @@ export default function UploadPage() {
     if (!file) return
     try {
       const config = {
-        film: { maxSize: 500, types: ["video/mp4", "video/mov", "video/avi", "video/quicktime", "video/x-msvideo"] },
+        film: { maxSize: 1024, types: ["video/mp4", "video/mov", "video/avi", "video/quicktime", "video/x-msvideo"] },
         trailer: { maxSize: 500, types: ["video/mp4", "video/mov", "video/avi", "video/quicktime", "video/x-msvideo"] },
         thumbnail: { maxSize: 10, types: ["image/jpeg", "image/png", "image/jpg", "image/webp"] },
       }
