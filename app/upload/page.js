@@ -285,12 +285,12 @@ export default function UploadPage() {
                     <FileStatus file={files.film} uploadedFile={uploadedFiles.film} />
                   </div>
                   <div className="space-y-2">
-                    <Label className="flex items-center gap-2"><Video className="h-4 w-4" />Trailer (Optional)</Label>
+                    <Label className="flex items-center gap-2"><Video className="h-4 w-4" />Trailer </Label>
                     <Input type="file" accept="video/*" onChange={(e) => handleFileChange("trailer", e.target.files[0])} disabled={isUploadingOrConfirming} />
                     <FileStatus file={files.trailer} uploadedFile={uploadedFiles.trailer} />
                   </div>
                   <div className="space-y-2">
-                    <Label className="flex items-center gap-2"><ImageIcon className="h-4 w-4" />Thumbnail (Optional)</Label>
+                    <Label className="flex items-center gap-2"><ImageIcon className="h-4 w-4" />Thumbnail</Label>
                     <Input type="file" accept="image/*" onChange={(e) => handleFileChange("thumbnail", e.target.files[0])} disabled={isUploadingOrConfirming} />
                     <FileStatus file={files.thumbnail} uploadedFile={uploadedFiles.thumbnail} />
                   </div>
